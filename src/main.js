@@ -14,3 +14,5 @@ db._state = db._state.setIn(['contacts', '1', 'messages'], Immutable.fromJS([
 ]));
 
 window.db = db;
+
+require('./app');
