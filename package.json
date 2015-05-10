@@ -1,0 +1,29 @@
+{
+  "name": "example-angular-flux",
+  "version": "1.0.0",
+  "description": "Example Angular + Flux app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicolashery/example-angular-flux"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server",
+    "jshint": "jshint src"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "1.4.0-rc.1",
+    "angular-new-router": "0.5.3"
+  },
+  "devDependencies": {
+    "babel-core": "5.2.17",
+    "babel-loader": "5.0.0",
+    "jshint": "2.7.0",
+    "node-libs-browser": "0.5.0",
+    "raw-loader": "0.5.1",
+    "webpack": "1.9.3",
+    "webpack-dev-server": "1.8.2"
+  }
+}
