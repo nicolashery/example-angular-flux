@@ -7,7 +7,7 @@ export default function() {
     restrict: 'E',
     scope: {},
     bindToController: {
-      contacts: '=',
+      contacts: '='
     },
     controller: ContactListController,
     controllerAs: 'vm',

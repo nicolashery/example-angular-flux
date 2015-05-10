@@ -62,7 +62,7 @@ class Api {
   }
 
   getContacts(cb) {
-    cb(null, this._db.getContacts());
+    cb(null, this._db.getContacts().toJS());
   }
 
   getContact(id, cb) {
@@ -70,13 +70,13 @@ class Api {
     if (!contact) {
       return cb(this._contactNotFoundResponse());
     }
-    return cb(null, contact);
+    return cb(null, contact.toJS());
   }
 
   createContact(contact, cb) {
     setTimeout(() => {
       contact = this._db.addContact(contact);
-      cb(null, contact);
+      cb(null, contact.toJS());
     }, 1000);
   }
 
@@ -86,7 +86,7 @@ class Api {
       if (!messages) {
         return cb(this._contactNotFoundResponse());
       }
-      cb(null, messages);
+      cb(null, messages.toJS());
     }, 1000);
   }
 }
