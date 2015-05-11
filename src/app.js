@@ -1,6 +1,6 @@
 import angular from 'angular';
 import 'angular-new-router';
-import {Dispatcher} from 'flux';
+import Dispatcher from './lib/Dispatcher';
 import Db from './lib/Db';
 import Api from './lib/Api';
 
@@ -10,13 +10,13 @@ let app = angular.module('app', ['ngNewRouter'])
   .factory('db', () => new Db())
   .factory('api', ['db', (db) => new Api({db: db})])
   // Flux
-  .factory('dispatcher', () => new Dispatcher())
+  .factory('dispatcher', ['$timeout', ($timeout) => new Dispatcher($timeout)])
   .factory('ContactStore', ['dispatcher', createStore(require('./stores/ContactStore'))])
   .factory('actions', () => { return {}; })
   .run(['actions', 'dispatcher', 'api', addAction('fetchContacts', require('./actions/fetchContacts'))])
   .run(['actions', 'dispatcher', 'api', addAction('createContact', require('./actions/createContact'))])
   // Route handlers
-  .controller('ContactsController', ['$rootScope', 'actions', 'ContactStore', require('./components/contacts')])
+  .controller('ContactsController', ['actions', 'ContactStore', require('./components/contacts')])
   .run(['$templateCache', cacheComponentTemplate('contacts', require('./components/contacts.html'))])
   // Directives
   .directive('contactList', require('./components/contactList'));

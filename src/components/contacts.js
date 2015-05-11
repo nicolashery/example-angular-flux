@@ -1,15 +1,8 @@
 class ContactsController {
-  constructor($rootScope, actions, ContactStore) {
+  constructor(actions, ContactStore) {
     this.actions = actions;
     this.ContactStore = ContactStore;
-    // SHAME: This feels like a major hack, must be doing something wrong
-    this.onStoreChange = () => {
-      setTimeout(() => {
-        $rootScope.$apply(() => {
-          this.setStateFromStores();
-        });
-      });
-    };
+    this.onStoreChange = this.setStateFromStores.bind(this);
     this.setStateFromStores();
   }
 
