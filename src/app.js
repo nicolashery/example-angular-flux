@@ -14,8 +14,9 @@ let app = angular.module('app', ['ngNewRouter'])
   .factory('ContactStore', ['dispatcher', createStore(require('./stores/ContactStore'))])
   .factory('actions', () => { return {}; })
   .run(['actions', 'dispatcher', 'api', addAction('fetchContacts', require('./actions/fetchContacts'))])
+  .run(['actions', 'dispatcher', 'api', addAction('createContact', require('./actions/createContact'))])
   // Route handlers
-  .controller('ContactsController', ['actions', 'ContactStore', require('./components/contacts')])
+  .controller('ContactsController', ['$rootScope', 'actions', 'ContactStore', require('./components/contacts')])
   .run(['$templateCache', cacheComponentTemplate('contacts', require('./components/contacts.html'))])
   // Directives
   .directive('contactList', require('./components/contactList'));

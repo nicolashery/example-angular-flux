@@ -1,27 +1,37 @@
 class ContactsController {
-  constructor(actions, ContactStore) {
+  constructor($rootScope, actions, ContactStore) {
     this.actions = actions;
     this.ContactStore = ContactStore;
-    this.setStateFromStores = this.setStateFromStores.bind(this);
+    // SHAME: This feels like a major hack, must be doing something wrong
+    this.onStoreChange = () => {
+      setTimeout(() => {
+        $rootScope.$apply(() => {
+          this.setStateFromStores();
+        });
+      });
+    };
     this.setStateFromStores();
   }
 
   activate() {
-    this.ContactStore.addChangeListener(this.setStateFromStores);
+    this.ContactStore.addChangeListener(this.onStoreChange);
     this.fetchData();
   }
 
   deactivate() {
-    this.ContactStore.removeChangeListener(this.setStateFromStores);
+    this.ContactStore.removeChangeListener(this.onStoreChange);
   }
 
   setStateFromStores() {
-    // TODO: this doesn't re-render the view when contacts get updated
     this.contacts = this.ContactStore.getContacts();
   }
 
   fetchData() {
     this.actions.fetchContacts();
+  }
+
+  handleCreateContact() {
+    this.actions.createContact({name: 'John'});
   }
 }
 

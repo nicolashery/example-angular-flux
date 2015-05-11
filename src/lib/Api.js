@@ -1,3 +1,5 @@
+import Immutable from 'immutable';
+
 class Api {
   constructor({db, getToken}) {
     this._db = db;
@@ -75,6 +77,7 @@ class Api {
 
   createContact(contact, cb) {
     setTimeout(() => {
+      contact = Immutable.fromJS(contact);
       contact = this._db.addContact(contact);
       cb(null, contact.toJS());
     }, 1000);
