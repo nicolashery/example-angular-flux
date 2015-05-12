@@ -4,8 +4,8 @@ class NewContact {
     this.actions = actions;
     this.CreateContactStore = CreateContactStore;
     this.onStoreChange = this.setStateFromStores.bind(this);
-    $scope.$connectTo(CreateContactStore, this.onStoreChange);
     this.setStateFromStores();
+    $scope.$connectTo(CreateContactStore, this.onStoreChange);
   }
 
   setStateFromStores() {

@@ -18,12 +18,12 @@ let app = angular.module('app', ['ngNewRouter'])
   .run(['actions', 'dispatcher', 'api', addAction('fetchContacts', require('./actions/fetchContacts'))])
   .run(['actions', 'dispatcher', 'api', addAction('createContact', require('./actions/createContact'))])
   // Route handlers
-  .controller('ContactsController', ['actions', 'ContactStore', 'CreateContactStore', require('./components/contacts')])
+  .controller('ContactsController', ['actions', require('./components/contacts')])
   .run(['$templateCache', cacheComponentTemplate('contacts', require('./components/contacts.html'))])
   .controller('AboutController', require('./components/about'))
   .run(['$templateCache', cacheComponentTemplate('about', require('./components/about.html'))])
   // Directives
-  .directive('contactList', require('./components/contactList'))
+  .directive('contactList', ['ContactStore', require('./components/contactList')])
   .directive('newContact', ['actions', 'CreateContactStore', require('./components/newContact')]);
 
 function setTemplatesPath($componentLoaderProvider) {
