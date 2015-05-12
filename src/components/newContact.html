@@ -3,7 +3,11 @@
     <p>
       <input ng-model="name" placeholder="New contact" />
       {{' '}}
-      <input type="submit" ng-click="vm.handleSubmit(name)" value="Create" />
+      <input
+        type="submit"
+        ng-click="vm.handleSubmit(name)"
+        value="{{vm.buttonText()}}"
+        ng-disabled="vm.buttonIsDisabled()" />
     </p>
   </form>
 </div>

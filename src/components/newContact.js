@@ -13,6 +13,18 @@ class NewContact {
     this.error = this.CreateContactStore.getCreateContactError();
   }
 
+  buttonText() {
+    if (this.isCreatingContact) {
+      return 'Creating...';
+    } else {
+      return 'Create';
+    }
+  }
+
+  buttonIsDisabled() {
+    return this.isCreatingContact;
+  }
+
   handleSubmit(name) {
     if (!(name && name.length)) {
       return;
