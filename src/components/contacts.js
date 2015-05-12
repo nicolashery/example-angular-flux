@@ -1,7 +1,8 @@
 class ContactsController {
-  constructor(actions, ContactStore) {
+  constructor(actions, ContactStore, CreateContactStore) {
     this.actions = actions;
     this.ContactStore = ContactStore;
+    this.CreateContactStore = CreateContactStore;
     this.onStoreChange = this.setStateFromStores.bind(this);
     this.setStateFromStores();
   }
@@ -21,10 +22,6 @@ class ContactsController {
 
   fetchData() {
     this.actions.fetchContacts();
-  }
-
-  handleCreateContact() {
-    this.actions.createContact({name: 'John'});
   }
 }
 

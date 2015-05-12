@@ -1,4 +1,4 @@
-class ContactListController {
+class ContactList {
   constructor() {}
 }
 
@@ -9,7 +9,7 @@ export default function() {
     bindToController: {
       contacts: '='
     },
-    controller: ContactListController,
+    controller: ContactList,
     controllerAs: 'vm',
     template: require('./contactList.html')
   };

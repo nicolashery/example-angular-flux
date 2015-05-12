@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   </head>
   <body ng-app="app" ng-controller="AppController as app">
-    <div ng-viewport></div>
+    <div>
+      <a ng-link="about">About</a>
+      <span> - </span>
+      <a ng-link="contacts">Contacts</a>
+      <div ng-viewport></div>
+    </div>
     <script src="bundle.js"></script>
   </body>
 </html>
