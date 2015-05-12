@@ -1,3 +1,4 @@
+import angular from 'angular';
 import Immutable from 'immutable';
 
 class Db {
@@ -95,4 +96,5 @@ class Db {
   }
 }
 
-export default Db;
+export default angular.module('services.db', [])
+  .factory('db', () => new Db());

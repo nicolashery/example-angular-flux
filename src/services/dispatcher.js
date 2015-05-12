@@ -1,3 +1,4 @@
+import angular from 'angular';
 import flux from 'flux';
 
 // Monkey-patch dispatcher to insert into Angular's "digest" cycle
@@ -13,4 +14,5 @@ class Dispatcher extends flux.Dispatcher {
   }
 }
 
-export default Dispatcher;
+export default angular.module('services.dispatcher', [])
+  .factory('dispatcher', ['$timeout', ($timeout) => new Dispatcher($timeout)]);

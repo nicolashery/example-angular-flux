@@ -1,55 +1,18 @@
 import angular from 'angular';
 import 'angular-new-router';
-import Dispatcher from './lib/Dispatcher';
-import Db from './lib/Db';
-import Api from './lib/Api';
+import {name as Contacts} from './components/contacts';
+import {name as About} from './components/about';
 
-let app = angular.module('app', ['ngNewRouter'])
+let app = angular.module('app', [
+    'ngNewRouter',
+    Contacts,
+    About
+  ])
   .config(['$componentLoaderProvider', setTemplatesPath])
-  .controller('AppController', ['$router', AppController])
-  .factory('db', () => new Db())
-  .factory('api', ['db', (db) => new Api({db: db})])
-  // Flux stores
-  .factory('dispatcher', ['$timeout', ($timeout) => new Dispatcher($timeout)])
-  .factory('ContactStore', ['dispatcher', createStore(require('./stores/ContactStore'))])
-  .factory('CreateContactStore', ['dispatcher', createStore(require('./stores/CreateContactStore'))])
-  // Flux actions
-  .factory('actions', () => { return {}; })
-  .run(['actions', 'dispatcher', 'api', addAction('fetchContacts', require('./actions/fetchContacts'))])
-  .run(['actions', 'dispatcher', 'api', addAction('createContact', require('./actions/createContact'))])
-  // Route handlers
-  .controller('ContactsController', ['actions', require('./components/contacts')])
-  .run(['$templateCache', cacheComponentTemplate('contacts', require('./components/contacts.html'))])
-  .controller('AboutController', require('./components/about'))
-  .run(['$templateCache', cacheComponentTemplate('about', require('./components/about.html'))])
-  // Directives
-  .directive('contactList', ['ContactStore', require('./components/contactList')])
-  .directive('newContact', ['actions', 'CreateContactStore', require('./components/newContact')]);
+  .controller('AppController', ['$router', AppController]);
 
 function setTemplatesPath($componentLoaderProvider) {
   $componentLoaderProvider.setTemplateMapping(name => `${name}.html`);
-}
-
-function cacheComponentTemplate(name, template) {
-  return function($templateCache) {
-    $templateCache.put(`${name}.html`, template);
-  };
-}
-
-function createStore(Store) {
-  return function(dispatcher) {
-    return new Store(dispatcher);
-  };
-}
-
-function addAction(name, action) {
-  if (action.name) {
-    throw new Error(`An action already exists with name "${name}"`);
-  }
-  return function(actions) {
-    let rest = Array.prototype.slice.call(arguments, 1);
-    actions[name] = action.apply(null, rest);
-  };
 }
 
 // Extend scopes with $connectTo store

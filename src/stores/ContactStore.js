@@ -1,6 +1,8 @@
-import BaseStore from './BaseStore';
+import angular from 'angular';
 import reduce from 'lodash/collection/reduce';
 import values from 'lodash/object/values';
+import BaseStore from './BaseStore';
+import {name as dispatcher} from '../services/dispatcher';
 
 class ContactStore extends BaseStore {
   constructor(dispatcher) {
@@ -51,4 +53,5 @@ class ContactStore extends BaseStore {
   }
 }
 
-export default ContactStore;
+export default angular.module('stores.ContactStore', [dispatcher])
+  .factory('ContactStore', ['dispatcher', dispatcher => new ContactStore(dispatcher)]);

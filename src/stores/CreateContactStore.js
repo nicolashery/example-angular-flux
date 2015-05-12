@@ -1,4 +1,6 @@
+import angular from 'angular';
 import BaseStore from './BaseStore';
+import {name as dispatcher} from '../services/dispatcher';
 
 class CreateContactStore extends BaseStore {
   constructor(dispatcher) {
@@ -54,4 +56,5 @@ class CreateContactStore extends BaseStore {
   }
 }
 
-export default CreateContactStore;
+export default angular.module('stores.CreateContactStore', [dispatcher])
+  .factory('CreateContactStore', ['dispatcher', dispatcher => new CreateContactStore(dispatcher)]);

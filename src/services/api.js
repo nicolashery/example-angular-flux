@@ -1,7 +1,9 @@
+import angular from 'angular';
 import Immutable from 'immutable';
+import {name as db} from './db';
 
 class Api {
-  constructor({db, getToken}) {
+  constructor(db, getToken) {
     this._db = db;
     this._getToken = getToken || function noop() {};
   }
@@ -94,4 +96,5 @@ class Api {
   }
 }
 
-export default Api;
+export default angular.module('services.api', [db])
+  .factory('api', ['db', db => new Api(db)]);

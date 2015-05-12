@@ -1,3 +1,6 @@
+import angular from 'angular';
+import {name as ContactStore} from '../stores/ContactStore';
+
 class ContactList {
   constructor($scope, ContactStore) {
     this.$scope = $scope;
@@ -20,7 +23,9 @@ class ContactList {
   }
 }
 
-export default function() {
+export default angular.module('components.contactList', [ContactStore])
+  .directive('contactList', ['ContactStore',
+function() {
   return {
     restrict: 'E',
     scope: {},
@@ -28,4 +33,4 @@ export default function() {
     controllerAs: 'vm',
     template: require('./contactList.html')
   };
-}
+}]);

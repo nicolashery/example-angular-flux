@@ -1,7 +1,11 @@
+import angular from 'angular';
+import {name as createContact} from '../actions/createContact';
+import {name as CreateContactStore} from '../stores/CreateContactStore';
+
 class NewContact {
-  constructor($scope, actions, CreateContactStore) {
+  constructor($scope, createContact, CreateContactStore) {
     this.$scope = $scope;
-    this.actions = actions;
+    this.createContact = createContact;
     this.CreateContactStore = CreateContactStore;
     this.onStoreChange = this.setStateFromStores.bind(this);
     this.setStateFromStores();
@@ -30,11 +34,13 @@ class NewContact {
       return;
     }
     this.$scope.name = '';
-    this.actions.createContact({name: name});
+    this.createContact({name: name});
   }
 }
 
-export default function() {
+export default angular.module('components.newContact', [createContact, CreateContactStore])
+  .directive('newContact', ['createContact', 'CreateContactStore',
+function() {
   return {
     restrict: 'E',
     scope: {},
@@ -42,4 +48,4 @@ export default function() {
     controllerAs: 'vm',
     template: require('./newContact.html')
   };
-}
+}]);
